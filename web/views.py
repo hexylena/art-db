@@ -27,7 +27,6 @@ class DetailView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(DetailView, self).get_context_data(**kwargs)
-        print Artwork._meta
         context['form']['fields']['media'].widget = RelatedFieldWidgetWrapper(
             FilteredSelectMultiple(('media'), False,),
             Artwork._meta.get_field('media').rel,

@@ -1,11 +1,11 @@
-- [ ] Dimensions
+- [x] Dimensions
 - [ ] DnD image upload
 - [x] Finished/unfinfisehe
 - [ ] Framed size
-- [ ] Inventory numbers/IDs
-- [ ] Media
-- [ ] Multiple Views
-- [ ] Per user categories
+- [x] Inventory numbers/IDs
+- [x] Media
+- [x] Multiple Views
+- [x] Per user categories
 - [ ] Prices
 - [ ] Thumbnails of inventory
 - [ ] photo credits
