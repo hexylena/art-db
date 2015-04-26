@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import UpdateView
 from django.contrib import messages
+from django.contrib.admin.widgets import FilteredSelectMultiple, RelatedFieldWidgetWrapper
 
 # Create your views here.
 def home(request):
@@ -17,13 +18,27 @@ def home(request):
 
 class DetailView(UpdateView):
     model = Artwork
-    fields = ['name', 'media', 'finished']
+    fields = ['name', 'inventory_id', 'media', 'finished', 'height', 'width', 'depth', 'mass']
     template_name = 'art/artwork_detail.html'
 
     def get_object(self, queryset=None):
         obj = Artwork.objects.get(id=self.kwargs['pk'])
         return obj
 
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        print Artwork._meta
+        context['form']['fields']['media'].widget = RelatedFieldWidgetWrapper(
+            FilteredSelectMultiple(('media'), False,),
+            Artwork._meta.get_field('media').rel,
+            None,
+            True
+        )
+        return context['form']
+
     def get_success_url(self):
         messages.add_message(self.request, messages.SUCCESS, 'Saved')
         return '/artwork/%d/' % self.get_object().id
+
+    #def post(self, request, **kwargs):
+        #return super(DetailView, self).post(request, **kwargs)

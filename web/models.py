@@ -1,4 +1,5 @@
 from django.db import models
+import os
 from django.contrib.auth.models import User
 
 UNITS_LENGTH = (
@@ -22,29 +23,40 @@ class UserMedia(models.Model):
     def __str__(self):
         return self.name
 
+class UserCategories(models.Model):
+    """Per user categoy list
+    """
+    name = models.CharField(max_length=256)
+    user = models.ForeignKey(User)
+
+    def __str__(self):
+        return self.name
+
 class Artwork(models.Model):
     """Individual piece of art
     """
     name = models.CharField(max_length=256)
+    inventory_id = models.CharField(max_length=32)
     media = models.ManyToManyField(UserMedia)
     finished = models.BooleanField(default=True)
     user = models.ForeignKey(User)
+    categories = models.ManyToManyField(UserCategories)
 
     # Dimensions
     #http://stackoverflow.com/questions/413446/django-and-units-conversion
-    height = models.FloatField()
-    height_units = models.CharField(max_length=2, choices=UNITS_LENGTH)
-    width = models.FloatField()
-    width_units = models.CharField(max_length=2, choices=UNITS_LENGTH)
-    depth = models.FloatField()
-    depth_units = models.CharField(max_length=2, choices=UNITS_LENGTH)
+    height = models.CharField(max_length=20)
+    #height_units = models.CharField(max_length=5, choices=UNITS_LENGTH)
+    width = models.CharField(max_length=20)
+    #width_units = models.CharField(max_length=2, choices=UNITS_LENGTH)
+    depth = models.CharField(max_length=20)
+    #depth_units = models.CharField(max_length=2, choices=UNITS_LENGTH)
     # Other Dims
-    mass = models.FloatField()
-    mass_units = models.CharField(max_length=2, choices=UNITS_MASS)
+    mass = models.CharField(max_length=20)
+    #mass_units = models.CharField(max_length=2, choices=UNITS_MASS)
 
     def __str__(self):
         return self.name
 
 class ArtworkView(models.Model):
-    image = models.ImageField()
+    image = models.ImageField(blank=True, null=True)
     artwork = models.ForeignKey(Artwork)

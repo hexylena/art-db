@@ -4,3 +4,4 @@ from .models import *
 # Register your models here.
 admin.site.register(UserMedia)
 admin.site.register(Artwork)
+admin.site.register(ArtworkView)

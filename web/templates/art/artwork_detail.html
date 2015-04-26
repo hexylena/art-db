@@ -11,7 +11,9 @@
         </div>
         <div class="row">
                 <div class="col-md-5">
-                        <img src="" />
+                        {% for view in artwork.artworkview_set.all %}
+                                <img src="{{view.image.url}}" width="100%"/>
+                        {% endfor %}
                 </div>
                 <div class="col-md-7">
                         <form method="POST">
