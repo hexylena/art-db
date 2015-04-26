@@ -2,6 +2,17 @@
 {% block head_title %}Home{% endblock %}
 
 {% block body %}
-<h1>Test</h1>
+<h1>My Inventory</h1>
+
+<div class="container-fluid">
+        <div class="row">
+                {% for artwork in artworks %}
+                <div class="col-xs-6 col-md-4" style="background:blue">
+                        <a href="{% url 'detail' pk=artwork.id %}">
+                        {{ artwork.name }}
+                </div>
+                {% endfor %}
+        </div>
+</div>
 {% endblock %}
 

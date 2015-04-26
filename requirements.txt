@@ -1,2 +1,3 @@
+Pillow
 django==1.8
 django-user-accounts

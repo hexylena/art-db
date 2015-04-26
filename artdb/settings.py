@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'bootstrapform',
     'pinax_theme_bootstrap',
+    'django_forms_bootstrap',
     'account',
     'web'
 )
