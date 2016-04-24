@@ -1,3 +1,4 @@
-Pillow
-django==1.8
-django-user-accounts
+django-bootstrap-themes
+Django==1.9
+django-bootstrap-themes==3.3.6
+Pillow==3.2.0

@@ -6,6 +6,11 @@ from django.views.generic.edit import UpdateView
 from django.contrib import messages
 from django.contrib.admin.widgets import FilteredSelectMultiple, RelatedFieldWidgetWrapper
 
+
+# def userPrefs(request):
+    # from bootstrap_themes import list_themes
+    # theme = models.CharField(max_length=255, default='default', choices=list_themes())
+
 # Create your views here.
 def home(request):
     print request, request.user.is_anonymous(), request.user.is_authenticated()
