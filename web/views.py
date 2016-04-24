@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Artwork
 from django.core.urlresolvers import reverse_lazy
 from django.views import generic
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib import messages
 from django.contrib.admin.widgets import FilteredSelectMultiple, RelatedFieldWidgetWrapper
 
@@ -13,10 +13,8 @@ from django.contrib.admin.widgets import FilteredSelectMultiple, RelatedFieldWid
 
 # Create your views here.
 def home(request):
-    print request, request.user.is_anonymous(), request.user.is_authenticated()
     if request.user.is_authenticated() and not request.user.is_anonymous():
-        print request.user
-        artwork = Artwork.objects.all().filter(user=request.user)
+        artwork = Artwork.objects.filter(user=request.user).all()
     else:
         artwork = {}
     return render(request, 'home/index.html', {'artworks': artwork})
@@ -32,3 +30,7 @@ class ArtworkUpdate(UpdateView):
     def get_success_url(self):
         messages.add_message(self.request, messages.SUCCESS, 'Saved')
         return '/artwork/%d/' % self.get_object().id
+
+class ArtworkDelete(DeleteView):
+    model = Artwork
+    success_url = reverse_lazy('home')

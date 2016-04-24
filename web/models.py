@@ -70,3 +70,38 @@ class Artwork(models.Model):
 class ArtworkView(models.Model):
     image = models.ImageField(blank=True, null=True)
     artwork = models.ForeignKey(Artwork)
+
+    def getMasonryCss(self):
+        # Return css class, size
+        iw = self.image.width
+        ih = self.image.height
+
+        aspect = float(iw) / float(ih)
+
+        ar_map = {}
+        for w in (1,2,3,4):
+            for h in (1,2,3,4):
+                calc_aspect = float(w) / float(h)
+                if calc_aspect not in ar_map:
+                    ar_map[calc_aspect] = (w, h)
+
+
+        w_css = {
+            1: '',
+            2: 'grid-item--width2',
+            3: 'grid-item--width3',
+            4: 'grid-item--width4',
+        }
+
+        h_css = {
+            1: '',
+            2: 'grid-item--height2',
+            3: 'grid-item--height3',
+            4: 'grid-item--height4',
+        }
+
+        nearestAspect = min(ar_map.keys(), key=lambda x:abs(x - aspect))
+
+        w_class_id, h_class_id = ar_map[nearestAspect]
+
+        return w_css.get(w_class_id) + " " + h_css.get(h_class_id)
