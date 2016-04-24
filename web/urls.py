@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    url(r'^artwork/(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
+    url(r'^artwork/(?P<pk>[0-9]+)/$', views.ArtworkUpdate.as_view(), name='artwork-update'),
     url(r'^account/', include('account.urls')),
     url(r'^$', views.home, name='home'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \

@@ -1,0 +1,127 @@
+{% extends "site_base.html" %}
+{% block head_title %}{{ artwork.name }}{% endblock %}
+
+{% block body %}
+<div class="container">
+        <div class="row">
+                <div class="col-md-12">
+                        <h1>{{ artwork.name }}</h1>
+                </div>
+        </div>
+        <div class="row">
+                <div class="col-md-5">
+                        {% for view in artwork.artworkview_set.all %}
+                                <img src="{{view.image.url}}" width="100%"/>
+                        {% endfor %}
+                </div>
+                <div class="col-md-7">
+                    <div class="well bs-component">
+                        <form class="form-horizontal">
+                            {% csrf_token %}
+                            <fieldset>
+                            <legend>Edit {{ artowrk.name }}</legend>
+                                <div class="form-group">
+                                    <label for="name" class="col-lg-2 control-label">Title</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" id="name" placeholder="Title" value="{{ artwork.name }}" >
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inventory_id" class="col-lg-2 control-label">Inventory ID</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" id="inventory_id" placeholder="Inventory ID" value="{{ artwork.inventory_id }}" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="media" class="col-lg-2 control-label">Media</label>
+                                    <div class="col-lg-10">
+                                        <select multiple="" class="form-control" id="media">
+                                            {% for media in artwork.usersMedia %}
+                                            <option selected={{ media.isApplied }}>{{ media }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="finished" class="col-lg-2 control-label">Finished</label>
+                                    <div class="col-lg-10">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input id="finished" type="checkbox" {% if artwork.finished %}checked{% endif %}>
+                                            </label>
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="height" class="col-lg-2 control-label">Height</label>
+                                    <div class="col-lg-10">
+                                        <input type="number" class="form-control" id="height" placeholder="Height" value="{{ artwork.height }}" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="width" class="col-lg-2 control-label">Width</label>
+                                    <div class="col-lg-10">
+                                        <input type="number" class="form-control" id="width" placeholder="Width" value="{{ artwork.width }}" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="depth" class="col-lg-2 control-label">Depth</label>
+                                    <div class="col-lg-10">
+                                        <input type="number" class="form-control" id="depth" placeholder="Depth" value="{{ artwork.depth }}" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="weight" class="col-lg-2 control-label">Weight</label>
+                                    <div class="col-lg-10">
+                                        <input type="number" class="form-control" id="weight" placeholder="Weight" value="{{ artwork.weight }}" >
+                                    </div>
+                                </div>
+
+
+
+                                <!--
+                                <div class="form-group">
+                                    <label for="textArea" class="col-lg-2 control-label">Textarea</label>
+                                    <div class="col-lg-10">
+                                        <textarea class="form-control" rows="3" id="textArea"></textarea>
+                                        <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Radios</label>
+                                    <div class="col-lg-10">
+                                        <div class="radio">
+                                            <label>
+                                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                                            Option one is this
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                                Option two can be something else
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                -->
+                                <div class="form-group">
+                                    <div class="col-lg-10 col-lg-offset-2">
+                                        <button type="reset" class="btn btn-default">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+        </div>
+</div>
+{% endblock %}

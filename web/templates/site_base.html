@@ -6,6 +6,9 @@
     <head>
         {% bootstrap_styles theme='cosmo' type='min.css' %}
         {% bootstrap_script use_min=True %}
+        <title>
+            {% block head_title %}Art DB{% endblock %}
+        </title>
     </head>
     <body>
  <div class="navbar navbar-default navbar-fixed-top">

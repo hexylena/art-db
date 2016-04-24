@@ -21,6 +21,7 @@ class UserMedia(models.Model):
     name = models.CharField(max_length=256)
     user = models.ForeignKey(User)
 
+
     def __str__(self):
         return self.name
 
@@ -57,6 +58,14 @@ class Artwork(models.Model):
 
     def __str__(self):
         return self.name
+
+    def usersMedia(self):
+        artwork_media = self.media.all()
+        for m in UserMedia.objects.filter(user=self.user).all():
+            if m in artwork_media:
+                m.isApplied = True
+            yield m
+
 
 class ArtworkView(models.Model):
     image = models.ImageField(blank=True, null=True)
