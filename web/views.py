@@ -5,6 +5,8 @@ from django.views import generic
 from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib import messages
 from django.contrib.admin.widgets import FilteredSelectMultiple, RelatedFieldWidgetWrapper
+from django.contrib.auth.decorators import login_required
+
 
 
 # def userPrefs(request):
@@ -12,6 +14,7 @@ from django.contrib.admin.widgets import FilteredSelectMultiple, RelatedFieldWid
     # theme = models.CharField(max_length=255, default='default', choices=list_themes())
 
 # Create your views here.
+@login_required
 def home(request):
     if request.user.is_authenticated() and not request.user.is_anonymous():
         artwork = Artwork.objects.filter(user=request.user).all()

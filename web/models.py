@@ -56,6 +56,8 @@ class Artwork(models.Model):
     mass = models.CharField(max_length=20)
     #mass_units = models.CharField(max_length=2, choices=UNITS_MASS)
 
+    shared = models.BooleanField(default=False)
+
     def __str__(self):
         return self.name
 
@@ -74,34 +76,17 @@ class ArtworkView(models.Model):
     def getMasonryCss(self):
         # Return css class, size
         iw = self.image.width
-        ih = self.image.height
-
-        aspect = float(iw) / float(ih)
-
-        ar_map = {}
-        for w in (1,2,3,4):
-            for h in (1,2,3,4):
-                calc_aspect = float(w) / float(h)
-                if calc_aspect not in ar_map:
-                    ar_map[calc_aspect] = (w, h)
-
 
         w_css = {
-            1: '',
-            2: 'grid-item--width2',
-            3: 'grid-item--width3',
-            4: 'grid-item--width4',
+            160: '',
+            320: 'grid-item--width2',
+            480: 'grid-item--width3',
+            640: 'grid-item--width4',
         }
 
-        h_css = {
-            1: '',
-            2: 'grid-item--height2',
-            3: 'grid-item--height3',
-            4: 'grid-item--height4',
-        }
+        # .grid-item--width2 { width: 320px; }
+        # .grid-item--width3 { width: 480px; }
+        # .grid-item--width4 { width: 640px; }
+        nearestWidth = min(w_css.keys(), key=lambda x:abs(x - iw))
 
-        nearestAspect = min(ar_map.keys(), key=lambda x:abs(x - aspect))
-
-        w_class_id, h_class_id = ar_map[nearestAspect]
-
-        return w_css.get(w_class_id) + " " + h_css.get(h_class_id)
+        return w_css.get(nearestWidth)
