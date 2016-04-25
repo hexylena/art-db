@@ -78,7 +78,7 @@ class ArtworkView(models.Model):
         iw = self.image.width
 
         w_css = {
-            160: '',
+            160: 'grid-item--width1',
             320: 'grid-item--width2',
             480: 'grid-item--width3',
             640: 'grid-item--width4',
